@@ -1,0 +1,21 @@
+
+# CLion & CMake build files
+cmake-build-*/
+CMakeLists.txt.user
+.idea/
+.vscode/
+*.iml
+*.o
+*.obj
+*.so
+*.a
+*.out
+*.exe
+*.log
+*.cache
+*.cmake
+Makefile
+CMakeCache.txt
+CMakeFiles/
+compile_commands.json
+
