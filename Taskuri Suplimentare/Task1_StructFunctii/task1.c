@@ -7,6 +7,15 @@ Se consideră prima literă din numele vostru, și prima literă
 din prenumele vostru.
 Sa se construiască un articol care să conțină cele două litere.
 
+Articolul trebuie să aibă logica. Articolul trebuie sa fie un substantiv. 
+Articolul trebuie sa aibă cel puțin trei atribute, si cel puțin unul să fie alocat dinamic. 
+Realizati o functie cu ajutorul careia sa cititi de la tastatura un articol de tipul construit de voi. 
+Funcția returnează obiectul citit. Realizati o functie care calculeaza 
+ceva pentru un obiect de tipul implementat de voi. (o medie sau o suma, un maxim, un minim...sau orice altceva) 
+Realizati o functie care modifica pentru un obiect primit ca parametru, un anumit camp. 
+noua valoare este primita ca parametru. Realizați o funcție care afișează un obiect de tipul creat. 
+Afișarea se face la console, și sunt afișate toate informațiile.
+
 Balica Bogdan -> B B
 */
 
