@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -75,8 +76,28 @@ void* citireListaDeMasiniFisier(const char* numeFisier){
     return lista;
 }
 
+void afisareMasina(Masina masina) {
+	//afiseaza toate elemente de tip masina din lista simplu inlantuita
+	//prin apelarea functiei afisareMasina()
+
+	printf("Id: %d\n", masina.id);
+	printf("Nr. usi : %d\n", masina.nrUsi);
+	printf("Pret: %.2f\n", masina.pret);
+	printf("Model: %s\n", masina.model);
+	printf("Nume sofer: %s\n", masina.numeSofer);
+	printf("Serie: %c\n\n", masina.serie);
+}
+
+void afisareListaMasini(Nod* cap) {
+	while(cap) {
+		afisareMasina(cap->info);
+		cap = cap->urm;
+	}
+
+}
 int main()
 {
     Nod* cap = NULL;
-    printf("da");
+    cap=citireListaDeMasiniFisier("masini.txt");
+    afisareListaMasini(cap);
 }
