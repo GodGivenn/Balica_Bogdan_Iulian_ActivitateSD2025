@@ -112,30 +112,92 @@ void* citireListaMasiniDinFisier(const char* numeFisier) {
 	return lista;
 }
 
-void dezalocareListaMasini(/*lista de masini*/) {
-	//sunt dezalocate toate masinile si lista de elemente
+void dezalocareListaMasini(Nod** lista) {
+    while(*lista) {
+        Nod* temp = *lista;
+        *lista = (*lista)->urm; // pt. ca ne ducem mai in fata un element si il stergem pe cel din urma
+        free(temp->info.model);
+        free(temp->info.numeSofer);
+        free(temp); // nu avem de ce sa setam temp si lista la NULL
+    }
 }
 
-float calculeazaPretMediu(/*lista de masini*/) {
-	//calculeaza pretul mediu al masinilor din lista.
-	return 0;
+float calculeazaPretMediu(Nod* lista) {
+    if (!lista) 
+    {
+        return 0;
+    }
+    int index = 0;
+    float suma = 0;
+    
+    while (lista)
+    {
+        suma += lista->info.pret;
+        index++;
+        lista = lista->urm;
+    }
+    return suma / index; // nu trb sa verificam daca impartim la 0 pt. ca deja facem asta in prima linie de cod din functie
 }
 
-void stergeMasiniDinSeria(/*lista masini*/ char serieCautata) {
-	//sterge toate masinile din lista care au seria primita ca parametru.
-	//tratati situatia ca masina se afla si pe prima pozitie, si pe ultima pozitie
+void stergeMasiniDinSeria(Nod** lista, char serieCautata) {
+    Nod* temp = *lista;
+    Nod* prev = NULL;
 }
 
-float calculeazaPretulMasinilorUnuiSofer(/*lista masini*/ const char* numeSofer) {
-	//calculeaza pretul tuturor masinilor unui sofer.
-	return 0;
+float calculeazaPretulMasinilorUnuiSofer(Nod* lista, const char* numeSofer) {
+    float suma = 0;
+    while (lista)
+    {
+        if (strcmp(lista->info.numeSofer, numeSofer) == 0)
+        {
+            suma += lista->info.pret;
+        }
+        lista = lista->urm;
+    }
+	return suma;
 }
+
+char* getCeaMaiScumpaMasina(Nod* lista) {
+    float pretMax = 0;
+    char* modelCautat;
+    while (lista)
+    {
+        if (lista->info.pret > pretMax)
+        {
+            pretMax = lista->info.pret;
+            modelCautat = lista->info.model;
+        }
+        lista = lista->urm;
+    }
+    if (pretMax > 0)
+    {
+        char* modelFinal = (char*)malloc(strlen(modelCautat) + 1 * sizeof(char));
+        strcpy(modelFinal, modelCautat);
+        return modelFinal;
+    }
+    return NULL;
+}
+
 
 int main() {
 	Nod* cap = NULL;
 	cap = citireListaMasiniDinFisier("masini.txt");
 	afisareListaMasini(cap);
 
+    printf("Pretul mediu este: %.2f\n\n", calculeazaPretMediu(cap));
+
+    const char* numeSofer = "Ionescu";
+    printf("Pretul total al masinilor pentru soferii cu numele %s este %.2f\n\n", numeSofer, calculeazaPretulMasinilorUnuiSofer(cap, numeSofer));
+
+    char* model = getCeaMaiScumpaMasina(cap);
+    printf("Cea mai scumpa masina este: %s\n", model);
+    if (!model)
+    {
+        free(model);
+    }
+    
+
+    dezalocareListaMasini(&cap);
 
 	return 0;
 }
