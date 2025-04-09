@@ -17,7 +17,7 @@ struct StructuraMasina {
 typedef struct StructuraMasina Masina;
 typedef struct Nod Nod;
 //creare structura pentru un nod dintr-o lista simplu inlantuita
- struct Nod {
+struct Nod {
     Masina info;
     Nod* urm;
 };
