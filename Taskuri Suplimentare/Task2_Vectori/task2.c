@@ -152,6 +152,12 @@ Biblioteca* concateneazaVectori(Biblioteca* biblioteca1, int nrBiblioteci1, Bibl
     return vectorNou;
 }
 
+void dezalocVectorBiblioteci(Biblioteca* vector, int nrBiblioteci) {
+    for (int i = 0; i < nrBiblioteci; i++) {
+        dezaloc(&vector[i]);
+    }
+    free(vector);
+}
 
 int main(){
     printf("Cate biblioteci vrei sa introduci?\nNumar Biblioteci: ");
@@ -194,4 +200,8 @@ int main(){
     Biblioteca* bNouConcat = concateneazaVectori(bNouPret, nrNouBibPret, bNouCarti, nrNouBibNrCarti, &nrNouConcat);
     afisareVectorDeBiblioteci(bNouConcat, nrNouConcat);
 
+    dezalocVectorBiblioteci(vectorBiblioteci, nrBiblioteci);
+    dezalocVectorBiblioteci(bNouPret, nrNouBibPret);
+    dezalocVectorBiblioteci(bNouCarti, nrNouBibNrCarti);
+    dezalocVectorBiblioteci(bNouConcat, nrNouConcat);
 }
