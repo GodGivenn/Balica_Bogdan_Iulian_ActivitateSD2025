@@ -137,6 +137,22 @@ Biblioteca* creazaVectorCopieNouCuAnumitNrCartie(Biblioteca* vectorBiblioteci, i
     return vectorNou;
 }
 
+
+Biblioteca* concateneazaVectori(Biblioteca* biblioteca1, int nrBiblioteci1, Biblioteca* biblioteca2, int nrBiblioteci2, int* dimConcatenare) {
+    *dimConcatenare = nrBiblioteci1 + nrBiblioteci2;
+    Biblioteca* vectorNou = (Biblioteca*)malloc(*dimConcatenare * sizeof(Biblioteca));
+
+    for (int i = 0; i < nrBiblioteci1; i++) {
+        vectorNou[i] = biblioteca1[i];
+    }
+
+    for (int i = 0; i < nrBiblioteci2; i++) {
+        vectorNou[nrBiblioteci1 + i] = biblioteca2[i];
+    }
+    return vectorNou;
+}
+
+
 int main(){
     printf("Cate biblioteci vrei sa introduci?\nNumar Biblioteci: ");
     int nrBiblioteci = 1;
@@ -171,5 +187,11 @@ int main(){
     afisareVectorDeBiblioteci(bNouCarti, nrNouBibNrCarti);
 
 
+    printf("\n------------Concatenare Pret si NrCarti------------\n");
+    int nrNouConcat=0;
+
+
+    Biblioteca* bNouConcat = concateneazaVectori(bNouPret, nrNouBibPret, bNouCarti, nrNouBibNrCarti, &nrNouConcat);
+    afisareVectorDeBiblioteci(bNouConcat, nrNouConcat);
 
 }
