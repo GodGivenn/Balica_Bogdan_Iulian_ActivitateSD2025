@@ -53,6 +53,20 @@ float calcPretMediu(Biblioteca b){
     return b.nrCarti > 0 ? suma/b.nrCarti : 0;
 }
 
+void afisareVectorDeBiblioteci(Biblioteca *b, int nrBiblioteci){
+    for(int i = 0; i < nrBiblioteci; i++){
+        printf("Denumire Biblioteca: %s\n", b[i].denumire);
+        printf("Id Carte : %d\n", b[i].id);
+        printf("Numar carti: %d\n", b[i].nrCarti);
+        for (int i = 0; i < b[i].nrCarti; i++){
+            printf("Pretul cartii %d: %.2f lei.\n", i + 1, b[i].preturiCarti[i]);
+        }
+        printf("Media preturilor este: %f\n", calcPretMediu(b[i]));
+        printf("\n");
+    }
+
+}
+
 void afisareBiblioteca(Biblioteca b) {
     printf("Denumire Biblioteca: %s\n", b.denumire);
     printf("Id Carte : %d\n", b.id);
@@ -103,6 +117,26 @@ Biblioteca* creazaVectorCopieNouCuPretPesteMedie(Biblioteca* vectorBiblioteci, i
     return vectorNou;
 }
 
+Biblioteca* creazaVectorCopieNouCuAnumitNrCartie(Biblioteca* vectorBiblioteci, int nrBiblioteci, int nrCartiDeCautat,int* nrBiblioteciNou){
+
+
+    for(int i=0; i<nrBiblioteci; i++){
+        if(vectorBiblioteci[i].nrCarti == nrCartiDeCautat){
+            (*nrBiblioteciNou)++;
+        }
+    }
+
+    Biblioteca* vectorNou = (Biblioteca*)malloc((*nrBiblioteciNou) * sizeof(Biblioteca));
+
+    int i_nou = 0;
+    for(int i=0;i<nrBiblioteci;i++)
+    if(vectorBiblioteci[i].nrCarti == nrCartiDeCautat){
+        vectorNou[i_nou++] = vectorBiblioteci[i];
+    }
+
+    return vectorNou;
+}
+
 int main(){
     printf("Cate biblioteci vrei sa introduci?\nNumar Biblioteci: ");
     int nrBiblioteci = 1;
@@ -114,18 +148,28 @@ int main(){
         printf("Citire date pentru biblioteca nr.%d:\n",i+1);
         vectorBiblioteci[i] = citireBibliotecaDeLaTastatura();
     }
+    printf("\n------------Cartile:------------\n");
 
     for(int i = 0; i < nrBiblioteci; i++)
     {
         afisareBiblioteca(vectorBiblioteci[i]);
     }
-    int nrNouBib=0;
-    printf("\n\n\n");
+    int nrNouBibPret=0;
     
-    Biblioteca* bNou = creazaVectorCopieNouCuPretPesteMedie(vectorBiblioteci, nrBiblioteci, &nrNouBib);
-    for(int i = 0; i < nrNouBib; i++)
+    printf("\n------------Peste pretul mediu------------\n");
+    
+    Biblioteca* bNouPret = creazaVectorCopieNouCuPretPesteMedie(vectorBiblioteci, nrBiblioteci, &nrNouBibPret);
+    for(int i = 0; i < nrNouBibPret; i++)
     {
-        afisareBiblioteca(bNou[i]);
+        afisareBiblioteca(bNouPret[i]);
     }
+    printf("\n------------Dupa nr de carti------------\n");
+    int nrNouBibNrCarti=0;
+
+
+    Biblioteca* bNouCarti = creazaVectorCopieNouCuAnumitNrCartie(vectorBiblioteci, nrBiblioteci, 2 ,&nrNouBibNrCarti);
+    afisareVectorDeBiblioteci(bNouCarti, nrNouBibNrCarti);
+
+
 
 }

@@ -16,14 +16,14 @@ struct StructuraMasina {
 };
 typedef struct StructuraMasina Masina;
 
+typedef struct Nod Nod;
 
 //creare structura pentru un nod dintr-o lista dublu inlantuita
 struct Nod{
     Masina info; //informatia utila
-    struct Nod* urmator; //adresa pointerului urm
-    struct Nod* precedent; // --//-- precedent
+    Nod* urmator; //adresa pointerului urm
+    Nod* precedent; // --//-- precedent
 };
-typedef struct Nod Nod;
 
 //creare structura pentru Lista Dubla 
 struct Lista
