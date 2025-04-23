@@ -20,6 +20,8 @@ typedef struct StructuraMasina Masina;
 //un vector de elemente, lungimea vectorului si numarul de elemente din vector
 struct Heap {
 	int lungime;
+    Masina* masini;
+    int nrMasini;
 };
 typedef struct Heap Heap;
 
@@ -57,10 +59,48 @@ void afisareMasina(Masina masina) {
 Heap initializareHeap(int lungime) {
 	//initializeaza heap-ul cu 0 elemente 
 	//dar cu o lungime primita ca parametru
+    Heap heap;
+    heap.lungime = lungime;
+    heap.masini = (Masina*)malloc(sizeof(Masina) * lungime);
+    heap.nrMasini = 0;
 }
 
+//dupa maxim
+//primim ca parametru pozitia radacinii si heapul intreg
 void filtreazaHeap(Heap heap, int pozitieNod) {
 	//filtreaza heap-ul pentru nodul a carei pozitie o primeste ca parametru
+    if(pozitieNod >= 0 && pozitieNod < heap.nrMasini)
+    {
+        int pozStanga = 2 * pozitieNod + 1;
+        int pozDreapta = 2 * pozitieNod + 2;
+        //poz fav: maximul este in radacina
+
+        //int maxim = heap.masini[pozitieNod].id; NU ASA
+        int pozMaxim = pozitieNod;
+        if(heap.masini[pozMaxim].id < heap.masini[pozStanga].id){
+            pozMaxim = pozStanga;
+        }
+        if(heap.masini[pozMaxim].id < heap.masini[pozDreapta].id){
+            pozMaxim = pozDreapta;
+        }
+        if(pozMaxim != pozitieNod)
+        {
+            Masina aux;
+            aux = heap.masini[pozMaxim];
+            heap.masini[pozMaxim] = heap.masini[pozitieNod];
+            heap.masini[pozitieNod] = aux;
+        }
+        //daca e frunza nu mai am ce copii sa verific deci trebuie apelat doar pentru parinti
+        //iar ca sa aflu cum e parinte fac asa
+        //adica sa nu existe pozitia 2n+1
+
+        //fiul lui pozMax, adica:
+        //pozMaxim * 2 + 1 < heap.nrMasini
+        if(pozMaxim < (heap.nrMasini - 1) / 2){
+            filtreazaHeap(heap,pozMaxim);
+        }
+        
+    }
 }
 
 Heap citireHeapDeMasiniDinFisier(const char* numeFisier) {
@@ -68,6 +108,7 @@ Heap citireHeapDeMasiniDinFisier(const char* numeFisier) {
 	// pe care trebuie sa il filtram astfel incat sa respecte 
 	// principiul de MAX-HEAP sau MIN-HEAP dupa un anumit criteriu
 	// sunt citite toate elementele si abia apoi este filtrat vectorul
+    
 }
 
 void afisareHeap(Heap heap) {
@@ -89,7 +130,5 @@ void dezalocareHeap(Heap* heap) {
 }
 
 int main() {
-
-
 	return 0;
 }
