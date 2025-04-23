@@ -117,6 +117,22 @@ Biblioteca* creazaVectorCopieNouCuPretPesteMedie(Biblioteca* vectorBiblioteci, i
     return vectorNou;
 }
 
+Biblioteca copieBiblioteca(Biblioteca b) {
+    Biblioteca copie;
+    copie.id = b.id;
+
+    copie.denumire = (char*)malloc((strlen(b.denumire) + 1) * sizeof(char));
+    strcpy(copie.denumire, b.denumire);
+
+    copie.nrCarti = b.nrCarti;
+    copie.preturiCarti = (float*)malloc(b.nrCarti * sizeof(float));
+    for (int i = 0; i < b.nrCarti; i++) {
+        copie.preturiCarti[i] = b.preturiCarti[i];
+    }
+
+    return copie;
+}
+
 Biblioteca* creazaVectorCopieNouCuAnumitNrCartie(Biblioteca* vectorBiblioteci, int nrBiblioteci, int nrCartiDeCautat,int* nrBiblioteciNou){
 
 
@@ -131,7 +147,7 @@ Biblioteca* creazaVectorCopieNouCuAnumitNrCartie(Biblioteca* vectorBiblioteci, i
     int i_nou = 0;
     for(int i=0;i<nrBiblioteci;i++)
     if(vectorBiblioteci[i].nrCarti == nrCartiDeCautat){
-        vectorNou[i_nou++] = vectorBiblioteci[i];
+        vectorNou[i_nou++] = copieBiblioteca(vectorBiblioteci[i]);
     }
 
     return vectorNou;
@@ -143,11 +159,11 @@ Biblioteca* concateneazaVectori(Biblioteca* biblioteca1, int nrBiblioteci1, Bibl
     Biblioteca* vectorNou = (Biblioteca*)malloc(*dimConcatenare * sizeof(Biblioteca));
 
     for (int i = 0; i < nrBiblioteci1; i++) {
-        vectorNou[i] = biblioteca1[i];
+        vectorNou[i] = copieBiblioteca(biblioteca1[i]);
     }
 
     for (int i = 0; i < nrBiblioteci2; i++) {
-        vectorNou[nrBiblioteci1 + i] = biblioteca2[i];
+        vectorNou[nrBiblioteci1 + i] = copieBiblioteca(biblioteca2[i]);
     }
     return vectorNou;
 }
