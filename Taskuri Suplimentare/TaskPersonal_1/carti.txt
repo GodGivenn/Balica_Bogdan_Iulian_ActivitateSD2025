@@ -1,0 +1,7 @@
+3,180,29.99,1984,George Orwell,S
+1,320,45.5,Crima si pedeapsa,Fyodor Dostoevsky,C
+7,290,34.0,To Kill a Mockingbird,Harper Lee,F
+2,150,27.75,Baltagul,Mihail Sadoveanu,C
+5,400,49.99,Dune,Frank Herbert,S
+6,210,35.0,Enigma Otiliei,George Calinescu,R
+4,280,39.5,Mizerabilii,Victor Hugo,C
